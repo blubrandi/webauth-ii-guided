@@ -25,8 +25,10 @@ router.post('/login', (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.username = user.username
+        //the cookie is sent by the express-session library
         res.status(200).json({
-          message: `Welcome ${user.username}!`,
+          message: `Welcome ${user.username}, have a cookie!`,
         });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
