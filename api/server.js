@@ -13,7 +13,7 @@ const sessionConfig = {
   secret: 'keep it secret, keep it safe -gandalf', // adds a layer of security.  can be any string, that's added.
   cookie: {
     httpOnly: true, // prevent access from JavaScript code
-    maxAge: 1000 * 60 * 1, //in milliseconds
+    maxAge: 1000 * 60 * 60, //in milliseconds
     secure: false, // true means only send the cookie over https
   },
   resave: false, //resave session even if it didn't change
@@ -29,7 +29,8 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
-  res.send("It's alive!");
+  const username = req.session.username || 'stranger';
+  res.send(`Hello ${username}!`);
 });
 
 module.exports = server;

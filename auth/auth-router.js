@@ -39,4 +39,19 @@ router.post('/login', (req, res) => {
     });
 });
 
+//destroy session to logout
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destory(err => {
+      if (err) {
+        res.sed('you can checkout anytime you like, but you can never leave...')
+      } else {
+        res.send('bye')
+      }
+    })
+  } else {
+    res.send('Not logged in.')
+  }
+})
+
 module.exports = router;
